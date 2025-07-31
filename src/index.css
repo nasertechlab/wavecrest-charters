@@ -8,33 +8,57 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Luxury yacht theme - Ocean blues, whites, and gold accents */
+    --background: 220 26% 14%;
+    --foreground: 200 100% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 30% 18%;
+    --card-foreground: 200 100% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 30% 18%;
+    --popover-foreground: 200 100% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 195 100% 45%;
+    --primary-foreground: 220 26% 14%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 45 100% 70%;
+    --secondary-foreground: 220 26% 14%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 30% 25%;
+    --muted-foreground: 200 20% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 195 80% 60%;
+    --accent-foreground: 220 26% 14%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 30% 25%;
+    --input: 220 30% 25%;
+    --ring: 195 100% 45%;
+
+    /* Custom yacht theme tokens */
+    --ocean-blue: 195 100% 45%;
+    --ocean-blue-dark: 195 100% 35%;
+    --ocean-blue-light: 195 100% 85%;
+    --yacht-gold: 45 100% 70%;
+    --yacht-gold-dark: 45 100% 60%;
+    --pure-white: 0 0% 100%;
+    --ocean-foam: 195 50% 95%;
+    
+    /* Gradients */
+    --gradient-ocean: linear-gradient(135deg, hsl(var(--ocean-blue)), hsl(var(--ocean-blue-dark)));
+    --gradient-luxury: linear-gradient(135deg, hsl(var(--yacht-gold)), hsl(var(--yacht-gold-dark)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--ocean-blue-dark)) 100%);
+    
+    /* Shadows and effects */
+    --shadow-luxury: 0 20px 60px -10px hsl(var(--ocean-blue) / 0.3);
+    --shadow-gold: 0 10px 40px -10px hsl(var(--yacht-gold) / 0.4);
+    --glow-ocean: 0 0 30px hsl(var(--ocean-blue) / 0.5);
+    
+    /* Animations */
+    --transition-luxury: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --wave-duration: 3s;
 
     --radius: 0.5rem;
 
@@ -100,6 +124,134 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  /* Ocean wave animations */
+  .wave {
+    background: var(--gradient-ocean);
+    border-radius: 1000% 1000% 0 0;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    animation: wave var(--wave-duration) ease-in-out infinite;
+    transform: translateX(-50%);
+    z-index: -1;
+  }
+  
+  .wave:nth-child(2) {
+    animation-delay: -1s;
+    animation-duration: 4s;
+    opacity: 0.6;
+  }
+  
+  .wave:nth-child(3) {
+    animation-delay: -2s;
+    animation-duration: 5s;
+    opacity: 0.4;
+  }
+
+  @keyframes wave {
+    0%, 100% {
+      transform: translateX(-50%) rotate(0deg);
+    }
+    50% {
+      transform: translateX(-50%) rotate(1deg);
+    }
+  }
+
+  /* Yacht-specific components */
+  .yacht-card {
+    @apply bg-card border border-border rounded-lg overflow-hidden shadow-lg hover:shadow-2xl;
+    transition: var(--transition-luxury);
+    box-shadow: var(--shadow-luxury);
+  }
+
+  .yacht-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-gold);
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold;
+    background: var(--gradient-ocean);
+    transition: var(--transition-luxury);
+    box-shadow: var(--shadow-luxury);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-ocean);
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground px-8 py-4 rounded-lg font-semibold;
+    background: var(--gradient-luxury);
+    transition: var(--transition-luxury);
+    box-shadow: var(--shadow-gold);
+  }
+
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px -10px hsl(var(--yacht-gold) / 0.6);
+  }
+
+  /* Scroll reveal animations */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+
+  .fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s ease-out;
+  }
+
+  .fade-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .fade-in-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.6s ease-out;
+  }
+
+  .fade-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Floating animation */
+  .floating {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  /* Luxury navigation */
+  .nav-glass {
+    background: hsl(var(--background) / 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid hsl(var(--border) / 0.5);
   }
 }

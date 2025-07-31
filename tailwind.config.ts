@@ -52,6 +52,18 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Custom yacht theme colors
+				'ocean-blue': {
+					DEFAULT: 'hsl(var(--ocean-blue))',
+					dark: 'hsl(var(--ocean-blue-dark))',
+					light: 'hsl(var(--ocean-blue-light))'
+				},
+				'yacht-gold': {
+					DEFAULT: 'hsl(var(--yacht-gold))',
+					dark: 'hsl(var(--yacht-gold-dark))'
+				},
+				'pure-white': 'hsl(var(--pure-white))',
+				'ocean-foam': 'hsl(var(--ocean-foam))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
